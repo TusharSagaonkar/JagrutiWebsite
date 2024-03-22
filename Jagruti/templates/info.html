@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Society Information{% endblock %}
+
+{% block styles %}
+<style>
+    .table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    .table th,
+    .table td {
+        border: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Society Information</h1><br>
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <tbody>
+                        {% for info in all_society_information %}
+                        <tr>
+                            <td><b>{{ info.data_heading }}</b></td>
+                            <td>{{ info.detail_info }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

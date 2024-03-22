@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Schemes{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Schemes</h1><br>
+<div class="container">
+    <div class="row">
+        {% for scheme in schemes %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ scheme.scheme_name }}</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Tenure</th>
+                                <th>Interest Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for tenure in scheme.tenures.all %}
+                            <tr>
+                                <td>{{ tenure.tenure }}</td>
+                                <td>{{ tenure.interest_rate }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Jagruti Co-Op Credit Society{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles -->
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- Your additional CSS files -->
+  <style>
+      /* Add this style to create a line when hovering over navbar items */
+      .nav-item:hover .nav-link::after {
+          content: "";
+          display: block;
+          width: 100%;
+          height: 2px;
+          background-color: #007bff; /* Change this color to your desired hover color */
+          transition: width 0.3s;
+      }
+  
+
+        {% block styles %}
+        {% endblock %}
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg- >
+        <div class="container">
+            <a class="navbar-brand" href="#""><h4>Jagruti Credit Society</h4></a>
+            <button class="navbar-toggler btn btn-outline-dark" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="schemes">Schemes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="bod">Board of Directors</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="info">Society Info</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="download">Download</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="contact">Contact Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% block content %}
+        <!-- Default Content -->
+        <h1>Welcome to Your Website</h1>
+        <p>This is the default content. Extend this template to override.</p>
+        {% endblock %}
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Jagruti Co-op Credit Society. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and jQuery (Optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/dist/qrcode.min.js"></script>
+    {% block scripts%}
+    {% endblock %}
+
+    
+
+</body>
+
+</html>

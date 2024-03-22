@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Your Website Title{% endblock %}
+
+{% block styles %}
+<style>
+    /* Zoom effect on hover */
+    .card-img-container {
+        overflow: hidden;
+    }
+
+    .card-img-top {
+        transition: transform 0.3s ease;
+    }
+
+    .card-img-container:hover .card-img-top {
+        transform: scale(1.05);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Board of Directors</h1><br>
+<div class="row">
+    {% for employee in employees|dictsort:"level" %}
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+        <div class="card h-100 d-flex flex-column">
+            <div class="card-img-container" style="height: 80%;">
+                <img src="{{ employee.image.url }}" class="card-img-top" alt="{{ employee.name }}" style="object-fit: cover; height: 100%;">
+            </div>
+            <div class="card-body" style="height: 20%; text-align:center;">
+                <h5 class="card-title">{{ employee.name }}</h5>
+                <p class="card-text">{{ employee.designation }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
