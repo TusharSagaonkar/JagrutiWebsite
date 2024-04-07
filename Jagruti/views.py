@@ -13,6 +13,12 @@ def bod(request):
 def contact(request):
     return render(request, 'contact.html')
 
+def fdCal(request):
+  return render(request, 'fdCal.html')
+
+def rdCal(request):
+  return render(request, 'rdCal.html')
+  
 def society_information_view(request):
       all_society_information = SocietyInformation.objects.all()
       for info in all_society_information:

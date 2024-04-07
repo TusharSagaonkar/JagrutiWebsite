@@ -10,38 +10,26 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles -->
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <!-- Your additional CSS files -->
-  <style>
-      /* Add this style to create a line when hovering over navbar items */
-      .nav-item:hover .nav-link::after {
-          content: "";
-          display: block;
-          width: 100%;
-          height: 2px;
-          background-color: #007bff; /* Change this color to your desired hover color */
-          transition: width 0.3s;
-      }
-  
-
-        {% block styles %}
-        {% endblock %}
+    <style>
+        /* Add this style to create a line when hovering over navbar items */
+      {% block styles %}
+      {% endblock %}
     </style>
+
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg- >
+    <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
         <div class="container">
-            <a class="navbar-brand" href="#""><h4>Jagruti Credit Society</h4></a>
-            <button class="navbar-toggler btn btn-outline-dark" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="#"><h4>Jagruti Credit Society</h4></a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse" id="navbarNav">
-              
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="schemes">Schemes</a>
@@ -56,10 +44,19 @@
                         <a class="nav-link" href="download">Download</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="contact">Contact Us</a>
+                        <a class="nav-link" href="contact">Contact Us</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="admin">Login</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Calculators
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="fdCal">Fixed Deposite</a>
+                        <a class="dropdown-item" href="rdCal">Reccuring Deposite</a>
+                      </div>
                     </li>
                 </ul>
             </div>
@@ -87,9 +84,6 @@
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/dist/qrcode.min.js"></script>
     {% block scripts%}
     {% endblock %}
-
-    
-
 </body>
 
 </html>

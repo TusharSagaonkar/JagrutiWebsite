@@ -10,5 +10,6 @@ urlpatterns = [
     path('download',views.download_view, name='Documnets to Download'),
     path('contact', views.contact, name='Contact Us'),
     path('schemes', views.scheme_list, name='scheme_list'),
-
+    path('rdCal', views.rdCal, name='rdCal'),
+    path('fdCal', views.fdCal, name='fdCal'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

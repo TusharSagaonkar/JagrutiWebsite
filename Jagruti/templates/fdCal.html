@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+
+{% block title %}Fd Calculator{% endblock %}
+
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FD Calculator</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+  <style>
+    #result-box {
+      display: none; /* Initially hide the result box */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container mt-5">
+    <div class="row"><div class="col-md-12 mb-4"><center><h1 class="mb-4">Fixed Deposit Calculator</h1></center></div></div>
+    <div class="row">
+      <div class="col-md-8">
+        <form id="fdForm">
+          <div class="mb-3">
+            <div class="d-flex">
+              <div class="col"><label for="principal" class="form-label me-3">Principal Amount</label></div>
+              <div class="col"><input type="number" class="form-control me-3" id="principal" name="principal" step="1000" value="10000" required tabindex="1"></div>
+             </div>
+			  <input type="range" class="form-range" id="principalSlider" name="principalSlider" min="1000" max="100000" step="1000" value="10000">
+            
+          </div>
+          <div class="mb-3">
+            <div class="d-flex">
+              <div class="col"><label for="interest" class="form-label me-3">Annual Interest Rate (%)</label></div>
+              <div class="col"><input type="number" class="form-control me-3" id="interest" name="interest" step="0.1" value="5" required tabindex="2"></div>
+              </div>
+			  <input type="range" class="form-range" id="interestSlider" name="interestSlider" min="1" max="25" step="1" value="5">
+            
+          </div>
+          <div class="mb-3">
+            <div class="d-flex">
+              <div class="col"><label for="months" class="form-label me-3">Number of Months</label></div>
+              <div class="col"><input type="number" class="form-control me-3" id="months" name="months" value="60" required tabindex="3"></div>
+			  </div>
+              <input type="range" class="form-range" id="monthsSlider" name="monthsSlider" min="1" max="120" value="60">
+            </div>
+          
+        </form>
+		
+		
+        <div>
+			<center><button type="button" class="btn btn-primary" id="calculate" tabindex="4">Calculate</button></center>
+        </div>
+		<div class="mt-4 p-3 mb-2 rounded alert alert-info" id="result-box">
+          <div class="row d-flex">
+            <div class="col"><label class="form-label me-3">Maturity Amount</label></div>
+            <div class="col"><b><p class="maturityAmount"></p></b></div>
+          </div>
+          <div class="row d-flex">
+            <div class="col"><label class="form-label me-3">Interest Earned</label></div>
+            <div class="col"><b><p class="interestAmount"></p></b></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 alert alert-light rounded">
+        <div class="mt-4">
+          <canvas id="fdChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      const ctx = document.getElementById('fdChart').getContext('2d');
+      const fdChart = new Chart(ctx, {
+        type: 'doughnut', // Change type to doughnut
+        data: {
+          labels: ['Maturity Amount', 'Interest Amount'],
+          datasets: [{
+            label: 'FD Calculation',
+            data: [0, 0],
+            backgroundColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          plugins: {
+            title: {
+              display: true,
+              text: 'FD Maturity and Interest'
+            }
+          },
+          cutout: '80%' // Adjust the cutout to create the donut effect
+        }
+      });
+
+      // Function to calculate FD
+      function calculateFD() {
+        var p = parseFloat($('#principal').val());
+        var i = parseFloat($('#interest').val());
+        var n = parseFloat($('#months').val() / 12); // Convert months to year for calculation
+        var freq = 4;
+        var r = (i / 100) / freq; // Convert annual interest rate to quarterly and then to decimal
+        var maturityAmount = p * Math.pow((1 + r), freq * n); // Formula for compound interest
+        var interestEarned = maturityAmount - p;
+
+        // Update chart data
+        fdChart.data.datasets[0].data = [maturityAmount, interestEarned];
+        fdChart.update();
+
+        // Show result box
+        $('#result-box').show();
+        $('.maturityAmount').text(maturityAmount.toFixed(2));
+        $('.interestAmount').text(interestEarned.toFixed(2));
+      }
+
+      // Calculate FD on button click
+      $('#calculate').click(function() {
+        calculateFD();
+      });
+
+      // Calculate FD on input change
+      $('#fdForm input[type="number"]').on('input', function() {
+        calculateFD();
+      });
+	      // Function to update sliders when textboxes change
+    $('#fdForm input[type="number"]').on('input', function() {
+      var inputId = $(this).attr('id');
+      $('#' + inputId + 'Slider').val($(this).val());
+      calculateFD();
+    });
+
+    // Function to update textboxes when sliders change
+    $('input[type="range"]').on('input', function() {
+      var inputId = $(this).attr('id').replace('Slider', '');
+      $('#' + inputId).val($(this).val());
+      calculateFD();
+    });
+
+      // Synchronize sliders with input boxes
+      $('input[type="range"]').on('input', function() {
+        var inputId = $(this).attr('id').replace('Slider', '');
+        $('#' + inputId).val($(this).val());
+        calculateFD();
+      });
+    });
+  </script>
+</body>
+</html>
+{% endblock %}
